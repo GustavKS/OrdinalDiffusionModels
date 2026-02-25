@@ -7,7 +7,7 @@ This repository contains the code for  "Ordinal Diffusion Models for Fundus Imag
 Set up a python environment with a python version 3.11. Then, download the repository, activate the environment and install all other dependencies with
 
 ```bash
-cd OrdinalDiffusion
+cd OrdinalDiffusionModels
 pip install -e .
 ```
 
