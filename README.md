@@ -3,6 +3,10 @@
 
 This repository contains the code for  "Ordinal Diffusion Models for Fundus Images". 
 
+![Ordinal Diffusion Models](image/ov.png)
+
+
+
 ## Installation
 Set up a python environment with a python version 3.11. Then, download the repository, activate the environment and install all other dependencies with
 
