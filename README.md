@@ -1,5 +1,5 @@
 
-# Ordinal Diffusion Model for Fundus Images
+# Ordinal Diffusion Models for Fundus Images
 
 This repository contains the code for  "Ordinal Diffusion Models for Fundus Images". 
 
