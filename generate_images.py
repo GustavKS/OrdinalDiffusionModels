@@ -67,9 +67,10 @@ def save_generated_images_by_class(samples, labels, save_dir):
         class_counts[label] += 1
 
 if __name__ == "__main__":
-    num_images_per_class = 256
     parser = argparse.ArgumentParser()
     parser.add_argument("--model", default="basestruct")
+    parser.add_argument("--num_images_per_class", type=int, default=100)
+    parser.add_argument("--out_dir", default="out/")
     parser.add_argument("--guide_w", type=float, default=4.0)
     args = parser.parse_args()
     guide_w = args.guide_w
@@ -87,22 +88,24 @@ if __name__ == "__main__":
     
     assert len(dr_levels) == len(semantic_levels)
 
-    gen_save_dir = f"out/generated_{args.model}_gw{guide_w}"
+    gen_save_dir = f"{args.out_dir}/generated_{args.model}_gw{guide_w}"
     if len(dr_levels) > 20:
-        gen_save_dir = f"out/generated_{args.model}_gw{guide_w}_interpol"
+        gen_save_dir = f"{args.out_dir}/generated_{args.model}_gw{guide_w}_interpol"
     os.makedirs(gen_save_dir, exist_ok=True)
 
     for idx, cls_value in enumerate(dr_levels):
         cond_labels = torch.tensor(
-            [cls_value] * num_images_per_class, dtype=torch.float
+            [cls_value] * args.num_images_per_class, dtype=torch.float
         )
         class_labels = torch.tensor(
-            [semantic_levels[idx]] * num_images_per_class, dtype=torch.float
+            [semantic_levels[idx]] * args.num_images_per_class, dtype=torch.float
         )
 
-        iqs = torch.full((num_images_per_class,), 0.8)
+        iqs = torch.full((args.num_images_per_class,), 0.8)
 
-        for i in tqdm.tqdm(range(0, num_images_per_class, batch_size)):
+        pbar = tqdm(total=args.num_images_per_class, desc=f"Class {dr_levels[idx]}")
+
+        for i in range(0, args.num_images_per_class, batch_size):
             batch_cond = cond_labels[i:i+batch_size]
             batch_class = class_labels[i:i+batch_size]
             batch_iqs = iqs[i:i+batch_size]
@@ -120,6 +123,8 @@ if __name__ == "__main__":
                 batch_class,
                 gen_save_dir
             )
+
+            pbar.update(len(batch_samples))
 
             del batch_samples
             torch.cuda.empty_cache()

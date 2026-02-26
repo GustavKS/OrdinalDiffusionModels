@@ -11,7 +11,7 @@ from ori.data import get_dataloader
 from ori.training import LightningWrapper
 from ori.utils import LitProgressBar, TorchScriptModelCheckpoint
 
-PATH_TO_DEFAULT_CFG = "configs/default.yaml"
+PATH_TO_DEFAULT_CFG = "configs/diffusion.yaml"
 
 
 def main(cfg):

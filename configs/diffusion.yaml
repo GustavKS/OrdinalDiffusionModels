@@ -46,7 +46,7 @@ model:  #https://github.com/facebookresearch/DiT/blob/main/models.py
   depth: 24
   num_heads: 16
   mlp_ratio: 4.0
-  ordinal_input: False
-  learned_ordinal_input: True
-  use_structure: True
+  equi: False
+  learned: True
+  structure: True
 metrics: []

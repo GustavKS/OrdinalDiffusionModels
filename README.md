@@ -19,21 +19,38 @@ pip install -e .
 Model weights can be downloaded using the download_model_weights.py script. 
 
 ```bash
-python download_model_weights.py
+python download_model_weights.py --model xx
 ```
+where xx is the model variant to be downloaded:
+- baseline w/o structure:     xx = base
+- baseline w/ structure:      xx = basestruct
+- equidistant w/o structure:  xx = equi
+- equidistant w/ structure:   xx = equistruct
+- learned w/o structure:      xx = learn
+- learned w/ structure:       xx = learnstruct
+- all models:                 xx = all
 
 ## Quick Start for Generating New Images
 For generating new images, download the model weights and run:
 ```bash
-python generate_images.py --model xx
+python generate_images.py --model xx --num_images_per_class 100 --out_dir out/
 ```
-where xx is the model variant:
-- baseline w/o structure:     xx = base
-- baseline w/ structure:      xx = basestruct
-- equidistant w/o structure:  xx = equi
-- equidistant w structure:    xx = equistruct
-- learned w/o structure:      xx = learn
-- learned w/ structure:       xx = learnstruct
+where xx is as above and out_dir the directory where the images are saved.
+
+## Training the Diffusion Model
+To train a diffusion model, configure the training parameters in `configs/diffusion.yaml`. The key options are:
+- **Model type**  
+  - `equi: True` → train the equidistant model  
+  - `learned: True` → train the learned model  
+- **Structural information**  
+  - `structure: True` → include structural information  
+  - `structure: False` → exclude structural information  
+
+After updating the configuration file, start training by running the training script:
+
+```bash
+python train_diffusion.py --config configs/diffusion.yaml
+```
 
 ## Project Structure
 
