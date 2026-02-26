@@ -3,7 +3,7 @@ import zipfile
 from pathlib import Path
 import requests
 
-ZENODO_ID = "18767617"
+ZENODO_ID = "18781460"
 ZENODO_BASE_URL = f"https://zenodo.org/record/{ZENODO_ID}/files"
 
 CORE_MODELS = ["VAE", "ENC"]
